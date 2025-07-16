@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Study Smart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: #e6f4e6; /* Default green background */
+      color: black;
+    }
+    .screen {
+      display: none;
+      padding: 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
+      background: #e6f4e6; /* Green background for all screens */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .visible {
+      display: flex;
+    }
+
+    /* Decorations on Home Screen */
+    #home .decorations {
+      font-size: 50px;
+      margin: 20px;
+    }
+    #home h1 {
+      font-size: 48px;
+      font-weight: bold;
+      margin: 10px;
+      color: black;
+    }
+    #home .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 30px;
+      width: 100%;
+      align-items: center;
+    }
+    #home button {
+      background: transparent;
+      color: black;
+      border: 2px solid black;
+      border-radius: 10px;
+      padding: 15px 30px;
+      font-size: 18px;
+      cursor: pointer;
+      width: 250px;
+      max-width: 90%;
+    }
+    #home button:hover {
+      background: rgba(0,0,0,0.1);
+    }
+
+    /* Generic button style on other screens */
+    button {
+      margin: 10px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .card {
+      background: white;
+      padding: 20px;
+      margin: 20px auto;
+      width: 80%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      color: black;
+    }
+  </style>
+  <script defer>
+    function showScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(
+        s => s.classList.remove('visible')
+      );
+      document.getElementById(screenId).classList.add('visible');
+    }
+  </script>
+</head>
+<body>
+
+<!-- Home Screen -->
+<div id="home" class="screen visible">
+  <div class="decorations">
+    📚 ✏️ 📖 ✏️ 📚
+  </div>
+  <h1>Study Smart</h1>
+  <div class="decorations">
+    ✏️ 📖 📚 ✏️ 📖
+  </div>
+
+  <div class="button-container">
+    <button onclick="showScreen('scan')">Scan Notes</button>
+    <button onclick="showScreen('flashcards')">My Flashcards</button>
+    <button onclick="showScreen('quiz')">Generate Quiz</button>
+  </div>
+</div>
+
+<!-- Scan Screen -->
+<div id="scan" class="screen">
+  <h2>Scan Notes</h2>
+  <div class="card">[Camera View Placeholder]</div>
+  <button onclick="showScreen('textExtracted')">Take Photo</button>
+  <button onclick="showScreen('home')">Back</button>
+</div>
+
+<!-- Text Extracted -->
+<div id="textExtracted" class="screen">
+  <h2>Extracted Text</h2>
+  <div class="card">
+    "Photosynthesis is the process by which plants make food..."
+  </div>
+  <button onclick="showScreen('generateFlashcards')">Generate Flashcards</button>
+  <button onclick="showScreen('scan')">Back</button>
+</div>
+
+<!-- Flashcards Generated -->
+<div id="generateFlashcards" class="screen">
+  <h2>Generated Flashcards</h2>
+  <div class="card">
+    <strong>Q:</strong> What is photosynthesis?<br/>
+    <strong>A:</strong> Process by which plants make food.
+  </div>
+  <button onclick="showScreen('flashcards')">Save Flashcards</button>
+</div>
+
+<!-- My Flashcards -->
+<div id="flashcards" class="screen">
+  <h2>My Flashcards</h2>
+  <div class="card">
+    Deck: Biology Notes<br/>
+    10 Cards
+  </div>
+  <button onclick="showScreen('reviewFlashcards')">Review Flashcards</button>
+  <button onclick="showScreen('home')">Home</button>
+</div>
+
+<!-- Review Flashcards -->
+<div id="reviewFlashcards" class="screen">
+  <h2>Flashcard 1/10</h2>
+  <div class="card">
+    <strong>Q:</strong> What is photosynthesis?
+  </div>
+  <button onclick="showScreen('reviewFlashcards2')">Show Answer</button>
+</div>
+
+<div id="reviewFlashcards2" class="screen">
+  <h2>Flashcard 1/10</h2>
+  <div class="card">
+    <strong>Q:</strong> What is photosynthesis?<br/>
+    <strong>A:</strong> Process by which plants make food.
+  </div>
+  <button onclick="showScreen('flashcards')">Back to Deck</button>
+</div>
+
+<!-- Generate Quiz -->
+<div id="quiz" class="screen">
+  <h2>Generate Quiz</h2>
+  <div class="card">
+    Select Deck: Biology Notes<br/>
+    Number of Questions: 5
+  </div>
+  <button onclick="showScreen('quizQuestion')">Start Quiz</button>
+  <button onclick="showScreen('home')">Home</button>
+</div>
+
+<!-- Quiz Question -->
+<div id="quizQuestion" class="screen">
+  <h2>Question 1</h2>
+  <div class="card">
+    What is photosynthesis?<br/><br/>
+    <button>A) A process by animals</button><br/>
+    <button>B) A process by plants</button><br/>
+    <button>C) A type of gas</button>
+  </div>
+  <button onclick="showScreen('quizResult')">Next</button>
+</div>
+
+<!-- Quiz Result -->
+<div id="quizResult" class="screen">
+  <h2>Your Score: 4/5</h2>
+  <button onclick="showScreen('quiz')">Retake Quiz</button>
+  <button onclick="showScreen('home')">Home</button>
+</div>
+
+</body>
+</html>
